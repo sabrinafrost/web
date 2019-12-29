@@ -1,0 +1,16 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "files.exclude": {
+        "**/node_modules": true,
+        "**/coverage": true
+    },
+    "editor.detectIndentation": true,
+    "editor.wrappingIndent": "indent",
+    "editor.formatOnType": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/coverage": true
+    }
+}
