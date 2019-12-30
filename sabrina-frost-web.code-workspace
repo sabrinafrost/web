@@ -26,6 +26,7 @@
 		"search.quickOpen.includeSymbols": true,
 		"search.smartCase": true,
 		"debug.toolBarLocation": "docked",
-		"editor.tabSize": 2
+		"editor.tabSize": 2,
+		"explorer.compactFolders": false
 	}
 }
