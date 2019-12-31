@@ -4,6 +4,6 @@
   "author": "Sabrina Frost <api@sabrinafrost.com>",
   "private": true,
   "scripts": {
-    "postinstall": "npm install --prefix"
+    "postinstall": "npm install --prefix server"
   }
 }
