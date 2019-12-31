@@ -1,13 +1,7 @@
 export async function welcome(request, reply) {
-  reply
-    .header("Content-Type", "text/html; charset=utf-8")
-    .send(`<h1>Welcome to Fastify + Typescript App 🔥 </h1>`);
+  reply.sendFile('documentation.html')
 }
 
-export async function hello(request, reply) {
-  const obj = {
-    hello: "world"
-  };
-
-  reply.type("application/json").send(obj);
+export async function spec(request, reply) {
+  reply.type("application/json").sendFile('common/reference/frost.tools.v1.yaml');
 }

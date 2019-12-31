@@ -1,0 +1,163 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "frost.tools.spec",
+    "version": "1.0",
+    "description": "",
+    "contact": {
+      "name": "Sabrina Frost",
+      "url": "https://sabrinafrost.com",
+      "email": "api@sabrinafrost.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://frost.tools",
+      "description": "Production"
+    },
+    {
+      "url": "http://localhost:8000",
+      "description": "Development"
+    }
+  ],
+  "paths": {
+    "/tesla/auth": {
+      "delete": {
+        "summary": "Revoke access token",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "patch-tesla",
+        "description": "Revoke access token",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "maxLength": 0
+            },
+            "in": "header",
+            "name": "data",
+            "description": "Encrypted Tesla data",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "encryption_key",
+            "description": "Encryption key (for encrypting / decrypting Tesla authentication data)",
+            "required": true
+          }
+        ]
+      },
+      "post": {
+        "summary": "Get access token and vehicle data",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "minItems": 1,
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "post-tesla",
+        "description": "Get new access token and vehicle data",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "bob",
+              "maxLength": 0
+            },
+            "in": "header",
+            "name": "tesla_email",
+            "description": "Tesla account email address",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "password"
+            },
+            "in": "header",
+            "name": "tesla_password",
+            "description": "Tesla account password",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "password"
+            },
+            "in": "header",
+            "name": "encryption_key",
+            "description": "Encryption key (for encrypting / decrypting Tesla authentication data)",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "summary": "Refresh access token",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "put-tesla",
+        "description": "Refresh access token",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "maxLength": 0
+            },
+            "in": "header",
+            "name": "data",
+            "description": "Encrypted Tesla data",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "encryption_key",
+            "description": "Encryption key (for encrypting / decrypting Tesla authentication data)",
+            "required": true
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {}
+  }
+}
