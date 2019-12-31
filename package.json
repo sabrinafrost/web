@@ -1,0 +1,9 @@
+{
+  "name": "sabrina-frost-web",
+  "version": "1.0.0",
+  "author": "Sabrina Frost <api@sabrinafrost.com>",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm install --prefix"
+  }
+}

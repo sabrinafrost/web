@@ -3,28 +3,19 @@
 # Logs
 logs
 *.log
-npm-debug.log*
 
-# node-waf configuration
+# Generated folders
+**/coverage
+**/build
+**/dist
+
+# Node-specific files and folders
+**/node_modules
+.npm
+.node_repl_history
+*.tgz
+npm-debug.log*
 .lock-wscript
 
-# Dependency directories
-node_modules
-
-# Code coverage report directory
-coverage
-
-# Build directory
-build
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
+# Other
 .eslintcache
-
-# Optional REPL history
-.node_repl_history
-
-# Output of 'npm pack'
-*.tgz

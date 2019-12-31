@@ -13,7 +13,7 @@ const port = Number(process.env.PORT) || 8000;
 const app: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify(serverOptions);
 const openApiOptions = {
   specification: `${__dirname}/assets/common/reference/frost.tools.v1.yaml`,
-  service: `${__dirname}/service.js`,
+  service: `${__dirname}/service.ts`,
   prefix: "v1"
 };
 

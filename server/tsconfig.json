@@ -5,14 +5,13 @@
     "removeComments": true,
     "target": "es6",
     "sourceMap": true,
-    "outDir": "./dist",
+    "outDir": "./build",
     "baseUrl": "./src"
   },
   "include": [
     "src/**/*"
   ],
   "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
+    "node_modules"
   ]
 }
