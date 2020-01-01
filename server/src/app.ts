@@ -9,7 +9,7 @@ const serverOptions: fastify.ServerOptions = {
   ignoreTrailingSlash: true
 };
 
-const port = Number(process.env.PORT) || 8000;
+const port = process.env.PORT || 8000;
 const app: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify(serverOptions);
 const openApiOptions = {
   specification: `${__dirname}/assets/common/reference/frost.tools.v1.yaml`,
