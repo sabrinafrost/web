@@ -7,7 +7,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "build": "rimraf build && tsc",
     "test": "",
-    "start": "cross-env NODE_ENV=production node build/app.js"
+    "start": "node build/app.js"
   },
   "author": "Sabrina Frost <api@sabrinafrost.com>",
   "dependencies": {
