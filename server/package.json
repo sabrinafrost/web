@@ -2,9 +2,9 @@
   "name": "sabrina-frost-server",
   "version": "1.0.0",
   "scripts": {
-    "prebuild": "del /build/",
+    "prebuild": "del build",
     "build": "tsc",
-    "postbuild": "cpy '**/*' '!**/*.ts' ../build/ --cwd=src/ --no-overwrite --parents",
+    "postbuild": "cpy 'common/**/**.*' server/build/assets --cwd=../ --parents && cpy 'assets/**/*.*' ../build --cwd=src --parents",
     "watch": "cross-env NODE_ENV=development nodemon",
     "debug": "nodemon --config nodemon-debug.json",
     "format": "prettier --write \"src/**/*.ts\"",

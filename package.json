@@ -5,12 +5,11 @@
   "private": true,
   "scripts": {
     "postinstall": "npm install --prefix server",
-    "prebuild": "npm run prebuild --prefix server",
     "build": "npm run build --prefix server",
-    "postbuild": "npm run postbuild --prefix server",
     "start": "npm start --prefix server"
   },
   "dependencies": {
+    "cpx": "^1.5.0",
     "typescript": "^3.7.3"
   }
 }
