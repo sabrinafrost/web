@@ -9,5 +9,8 @@
     "build": "npm run build --prefix server",
     "postbuild": "npm run postbuild --prefix server",
     "start": "npm start --prefix server"
+  },
+  "dependencies": {
+    "typescript": "^3.7.3"
   }
 }
