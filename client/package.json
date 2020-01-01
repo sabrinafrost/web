@@ -5,5 +5,8 @@
     "install": "elm-app install",
     "test": "elm-app test"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "dependencies": {
+    "create-elm-app": "^4.1.2"
+  }
 }
