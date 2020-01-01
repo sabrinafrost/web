@@ -6,7 +6,7 @@
     "debug": "nodemon --config nodemon-debug.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "test": "",
-    "start": "nodemon"
+    "start": "nodemoner"
   },
   "author": "Sabrina Frost <api@sabrinafrost.com>",
   "dependencies": {
