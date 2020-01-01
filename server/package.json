@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "prebuild": "del build",
-    "build": "tsc",
-    "postbuild": "cpy 'common/**/**.*' server/build/assets --cwd=../ --parents && cpy 'assets/**/*.*' ../build --cwd=src --parents",
+    "build": "run-s build:*",
+    "build:compile-typescript": "tsc",
+    "build:copy-assets": "cpy 'assets/**/*.*' ../build --cwd=src --parents",
+    "build:copy-common": "cpy 'common/**/**.*' server/build/assets --cwd=../ --parents",
     "watch": "cross-env NODE_ENV=development nodemon",
     "debug": "nodemon --config nodemon-debug.json",
     "format": "prettier --write \"src/**/*.ts\"",
@@ -22,6 +24,7 @@
     "fastify-sensible": "^2.1.1",
     "fastify-static": "^2.5.1",
     "fastify-swagger": "^2.5.0",
+    "npm-run-all": "^4.1.5",
     "path": "^0.12.7"
   },
   "devDependencies": {
