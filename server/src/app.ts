@@ -9,11 +9,11 @@ const serverOptions: fastify.ServerOptions = {
   ignoreTrailingSlash: true
 };
 
-const port = Number(process.env.PORT) || 8000;
+const port = parseInt(process.env.PORT, 10) || 8000;
 const app: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify(serverOptions);
 const openApiOptions = {
   specification: `${__dirname}/assets/common/reference/frost.tools.v1.yaml`,
-  service: `${__dirname}/service.ts`,
+  service: `${__dirname}/service.${process.env.PORT === 'development' ? `ts` : `js`}`,
   prefix: "v1"
 };
 
@@ -22,7 +22,7 @@ app.register(require("fastify-openapi-glue"), openApiOptions);
 app.register(router);
 app.register(require('fastify-static'), { root: path.join(__dirname, 'assets') })
 
-app.listen(port, err => {
+app.listen(port, '0.0.0.0', (err, address) => {
   if (err) throw err
   console.log(`❄️  Frost server is chillin' on port ${port}`);
 })
