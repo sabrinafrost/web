@@ -22,7 +22,7 @@ app.register(require("fastify-openapi-glue"), openApiOptions);
 app.register(router);
 app.register(require('fastify-static'), { root: path.join(__dirname, 'assets') })
 
-fastify.listen(port, '0.0.0.0', (err, address) => {
+app.listen(port, '0.0.0.0', (err, address) => {
   if (err) throw err
   console.log(`❄️  Frost server is chillin' on port ${port}`);
 })
