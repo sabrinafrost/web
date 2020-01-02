@@ -13,7 +13,7 @@ const port = parseInt(process.env.PORT, 10) || 8000;
 const app: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify(serverOptions);
 const openApiOptions = {
   specification: `${__dirname}/assets/common/reference/frost.tools.v1.yaml`,
-  service: `${__dirname}/service.${process.env.NODE_ENV === 'development' ? `ts` : `js`}`,
+  service: {}, // this is required for openapi-glue to inittialize
   prefix: "v1"
 };
 

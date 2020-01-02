@@ -1,5 +1,5 @@
 import * as cryptoJS from 'crypto-js';
-const fastify = require('fastify')()
+import * as fastify from "fastify";
 
 export async function encrypt(request, reply) {
   const encrypted = cryptoJS.AES.encrypt(request.body.data, request.body.key).toString()
@@ -13,3 +13,10 @@ export async function decrypt(request, reply) {
   if (!decrypted) reply.badRequest('Unable to decrypt this data')
   reply.send({ decrypted });
 }
+
+export async function week(request, reply) {
+  let now: any = new Date();
+  let onejan: any = new Date(now.getFullYear(), 0, 1);
+  let week: number = Math.ceil( (((now - onejan) / 86400000) + onejan.getDay() + 1) / 7 );
+  reply.send({ week: week })
+};

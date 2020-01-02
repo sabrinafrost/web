@@ -7,10 +7,6 @@ info:
     url: 'https://sabrinafrost.com'
     email: api@sabrinafrost.com
   description: ''
-  x-logo:
-      url: /common/images/banner.png
-      backgroundColor: #FFFFFF
-      altText: Frost Logo
 servers:
   - url: 'https://frost.tools'
     description: Production
@@ -110,6 +106,41 @@ paths:
           name: encryption_key
           description: Encryption key (for encrypting / decrypting Tesla authentication data)
           required: true
+  /utilities/week:
+    get:
+      summary: Get week number
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers: {}
+      operationId: get-utilities
+    parameters: []
+  /utilities/encrypt:
+    post:
+      summary: Encrypt data
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+      operationId: post-utilities-encrypt
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                key:
+                  type: string
+                  format: password
+              required:
+                - data
+                - key
+        description: ''
 components:
   schemas: {}
   securitySchemes: {}
