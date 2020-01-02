@@ -1,7 +1,17 @@
-import { welcome, spec } from "./handlers";
+import tesla from "./tesla";
+import { encrypt, decrypt } from "./encryption";
 
 export default function router(fastify, opts, next) {
-  fastify.get("/", welcome);
-  fastify.get("/spec", spec);
+  fastify.get("/", (request, reply) => reply.sendFile('documentation.html'));
+  fastify.get("/spec", (request, reply) => reply.type("application/json").sendFile('common/reference/frost.tools.v1.yaml'));
+
+  fastify.post("/tesla/auth", tesla.auth.new)
+  fastify.put("/tesla/auth", tesla.auth.refresh)
+  fastify.delete("/tesla/auth", tesla.auth.delete)
+  fastify.get("/tesla/command", tesla.command)
+  
+  fastify.post("/encrypt", encrypt)
+  fastify.post("/decrypt", decrypt)
+
   next();
 }
