@@ -16,12 +16,44 @@
       margin: 0;
       padding: 0;
     }
+ 
+    img[alt="logo"] {
+      margin-top: 40px;
+    }
+
+    .redoc-wrap .menu-content {
+      width: 350px;
+    }
+
+    .menu-content .search-icon {
+      position: relative;
+      top: 45px;
+    }
+
+    .menu-content i {
+      display: none;
+    }
+
+    .menu-content .search-input {
+      padding: 20px;
+    }
+
+    .menu-content a[href="https://github.com/Redocly/redoc"],
+    .menu-content a[href="https://github.com/Redocly/redoc"]:hover {
+      text-decoration: none;
+      opacity: 0.5;
+      padding: 20px 0;
+    }
   </style>
 </head>
 
 <body>
   <redoc
     spec-url='/spec'
+    disable-search
+    hide-single-request-sample-tab
+    no-auto-auth
+    hide-hostname
     hide-loading
     hide-download-button
   ></redoc>
