@@ -10,7 +10,6 @@
     "clean": "del build",
     "debug": "nodemon --config nodemon-debug.json",
     "format": "prettier --write \"src/**/*.ts\"",
-    "prestart": "npm run clean",
     "start": "node build/app.js",
     "watch": "nodemon"
   },
