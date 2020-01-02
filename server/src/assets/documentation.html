@@ -1,31 +1,165 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>ReDoc</title>
-  <!-- needed for adaptive design -->
+  <title>Frost Tools Documentation</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
-
-  <!--
-    ReDoc doesn't change outer page styles
-    -->
+  <link rel="shortcut icon" type="image/x-icon" href="common/images/favicon.png" />
   <style>
     body {
       margin: 0;
       padding: 0;
     }
+ 
+    img[alt="logo"] {
+      max-width: 300px;
+      margin: 0;
+      padding: 50px 50px 20px 50px;
+    }
+
+    .redoc-wrap a {
+      font-weight: bold;
+    }
+
+    .api-content h1,
+    .api-content h2,
+    .api-content h3:not(.sc-gZMcBi),
+    .api-content h4,
+    .api-content h5,
+    .api-content h6 {
+      color: #263238;
+    }
+
+    .menu-content {
+      font-size: 130%;
+      line-height: 2em;
+    }
+
+    .menu-content .search-icon {
+      position: relative;
+      top: 45px;
+    }
+
+    .menu-content label[type="group"] {
+      font-weight: bold;
+      color: #000;
+    }
+
+    .menu-content i {
+      display: none;
+    }
+
+    .menu-content .search-input {
+      padding: 20px;
+    }
+
+    .menu-content a[href="https://github.com/Redocly/redoc"],
+    .menu-content a[href="https://github.com/Redocly/redoc"]:hover {
+      text-decoration: none;
+      opacity: 0.5;
+      padding: 20px 0;
+    }
+
+    .menu-content .operation-type {
+      margin-top: 11px;
+    }
+
+    .menu-content .-depth1 svg { /* menu group item arrow */
+      margin-top: 6px;
+    }
+
+    .http-verb {
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    div[data-section-id^="tag"] {
+      padding: 0 0 30px 0;
+    }
+
+    div[data-section-id^="tag"] h1 {
+      margin: 0;
+    }
+
+    div[data-section-id^="operation"] {
+      padding: 0 0 30px 0;
+      margin-bottom: 30px;
+    }
+
+    div[data-section-id^="operation"] h2 {
+      margin-top: 0;
+    }
+
+    td .sc-cHGsZl { /* parameter format */
+      color: #888;
+    }
+
+    .sc-kTUwUJ { /* right pane host url dropdown */
+      pointer-events: none;
+    }
+
+    .sc-kTUwUJ svg { /* right pane host url dropdown arrow */
+      display: none;
+    }
+
+    .react-tabs__tab-panel > div > div > span {  /* right pane "content-type" label */
+      display: none;
+    }
   </style>
 </head>
 
 <body>
-  <redoc
-    spec-url='/spec'
-    hide-loading
-    hide-download-button
-  ></redoc>
-  <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"> </script>
+  <div id="spec"></div>
+  <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
+  <script>
+    Redoc.init('./spec', {
+        disableSearch: true,
+        noAutoAuth: true,
+        hideHostname: true,
+        hideLoading: true,
+        hideDownloadButton: true,
+        suppressWarnings: true,
+        requiredPropsFirst: true,
+        sortPropsAlphabetically: true,
+        pathInMiddlePanel: false,
+        theme: {
+          colors: {
+            http: {
+              get: '#28a745',
+              post: '#007bff',
+              put: '#17a2b8',
+              patch: '#17a2b8',
+              delete: '#dc3545'
+            }
+          },
+          typography: {
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+            headings: {
+              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+              fontWeight: 600
+            },
+            code: {
+              fontFamily: '"Source Code Pro", "Courier", monospace'
+            },
+            links: {
+              color: '#000',
+              visited: '#000',
+              hover: '#000'
+            }
+          },
+          rightPanel: {
+            width: '30%'
+          },
+          menu: {
+            width: '350px',
+            textColor: '#263238',
+            activeTextColor: '#263238'
+          },
+          codeSample: {
+            backgroundColor: 'rgba(0,0,0, 0.3)'
+          }
+        }
+      }, document.getElementById('spec'));
+  </script>
 </body>
-
 </html>

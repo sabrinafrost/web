@@ -7,16 +7,27 @@ info:
     url: 'https://sabrinafrost.com'
     email: api@sabrinafrost.com
   description: ''
+  x-logo:
+      url: "./common/images/logo.png"
 servers:
   - url: 'https://frost.tools'
     description: Production
   - url: 'http://localhost:8000'
     description: Development
+x-tagGroups:
+  - name: Tesla
+    tags:
+      - Authentication
+      - Commands
+  - name: Utilities
+    tags:
+      - Encryption
+      - Other
 paths:
   /tesla/auth:
     delete:
       summary: Revoke access token
-      tags: []
+      tags: ["Authentication"]
       responses:
         '200':
           description: OK
@@ -40,7 +51,7 @@ paths:
           required: true
     post:
       summary: Get access token and vehicle data
-      tags: []
+      tags: ["Authentication"]
       responses:
         '200':
           description: OK
@@ -84,7 +95,7 @@ paths:
           required: true
     put:
       summary: Refresh access token
-      tags: []
+      tags: ["Authentication"]
       responses:
         '200':
           description: OK
@@ -109,7 +120,7 @@ paths:
   /utilities/week:
     get:
       summary: Get week number
-      tags: []
+      tags: ["Other"]
       responses:
         '200':
           description: OK
@@ -119,7 +130,32 @@ paths:
   /utilities/encrypt:
     post:
       summary: Encrypt data
-      tags: []
+      tags: ["Encryption"]
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+      operationId: post-utilities-encrypt
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                key:
+                  type: string
+                  format: password
+              required:
+                - data
+                - key
+        description: ''
+  /utilities/decrypt:
+    post:
+      summary: Decrypt data
+      tags: ["Encryption"]
       responses:
         '200':
           description: OK
