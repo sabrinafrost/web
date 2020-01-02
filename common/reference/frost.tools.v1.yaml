@@ -8,7 +8,7 @@ info:
     email: api@sabrinafrost.com
   description: ''
   x-logo:
-      url: "https://frost.tools/common/images/logo.png"
+      url: "./common/images/logo.png"
 servers:
   - url: 'https://frost.tools'
     description: Production
