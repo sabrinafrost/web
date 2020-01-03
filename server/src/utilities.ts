@@ -10,7 +10,7 @@ export async function encrypt(request, reply) {
 export async function decrypt(request, reply) {
   const bytes = cryptoJS.AES.decrypt(request.body.data, request.body.key)
   const decrypted = bytes.toString(cryptoJS.enc.Utf8)
-  if (!decrypted) reply.badRequest('Unable to decrypt this data')
+  if (!decrypted) reply.unauthorized('The data and key are incompatible')
   reply.send({ decrypted });
 }
 

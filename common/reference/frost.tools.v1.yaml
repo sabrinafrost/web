@@ -33,12 +33,12 @@ paths:
           description: OK
         '401':
           description: Unauthorized
-      operationId: patch-tesla
+      operationId: teslaAuthDelete
       description: Revoke access token
       parameters:
         - schema:
             type: string
-            maxLength: 0
+            minLength: 1
           in: header
           name: data
           description: Encrypted Tesla data
@@ -66,17 +66,57 @@ paths:
               examples:
                 example-1:
                   value:
-                    'Tesla #1': snatoheusntahoeusntoeghu
+                    - "Elon's Roadster": U2FsdGVkX1+8I+5aymBUz35elwql5GgekUsTemUJBAxEa9wfS+7KqVGYqGrrBg2Zuq6nSz4toPAb9W8YK3IrQeGZdvtF9ADMX9Wh4MA]JdaQEETjk8nWWHqJKuazJJHdmYtnMFUhdaJIzUbIpu+n7hrlX/hDXqL/YAt2QeYMpFk=
+                    - "Jeff Bezo's Rust Bucket": U2FsdGVkX19NNxagPDVi/ERTis4CVdicXbgK0fVMwoUOlYKTZmJBVl0wTFa66Mxcm2oYrHI6d1PZQU0Yt65zaF3N1WX+pmgtSIc/rW7YSZEEXKyBwKf0g+g4D9juKX1TRVvh6sQjSqVgppy+6Llz/IVBjx+P27YhXnA9NdoJ12k=
         '204':
           description: No Content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  error:
+                    type: string
+                  statusCode:
+                    type: number
+              examples:
+                example-1:
+                  value:
+                    message: No vehicles found in this account
+                    error: No Content
+                    statusCode: 204
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example-1:
+                  value:
+                    message: body should have required property 'key'
+                    error: Bad Request
+                    statusCode: 400
         '401':
           description: Unauthorized
-      operationId: post-tesla
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example-1:
+                  value:
+                    message: Failed to authenticate with Tesla
+                    error: Unauthorized
+                    statusCode: 401
+      operationId: teslaAuthNew
       description: Get new access token and vehicle data
       parameters:
         - schema:
             type: string
-            maxLength: 0
+            minLength: 1
           in: header
           name: tesla_email
           description: Tesla account email address
@@ -101,12 +141,12 @@ paths:
           description: OK
         '401':
           description: Unauthorized
-      operationId: put-tesla
+      operationId: teslaAuthRefresh
       description: Refresh access token
       parameters:
         - schema:
             type: string
-            maxLength: 0
+            minLength: 1
           in: header
           name: data
           description: Encrypted Tesla data
@@ -117,7 +157,7 @@ paths:
           name: encryption_key
           description: Encryption key (for encrypting / decrypting Tesla authentication data)
           required: true
-  /utilities/week:
+  /week:
     get:
       summary: Get week number
       tags: ["Other"]
@@ -125,9 +165,9 @@ paths:
         '200':
           description: OK
           headers: {}
-      operationId: get-utilities
+      operationId: week
     parameters: []
-  /utilities/encrypt:
+  /encrypt:
     post:
       summary: Encrypt data
       tags: ["Encryption"]
@@ -136,7 +176,7 @@ paths:
           description: OK
         '400':
           description: Bad Request
-      operationId: post-utilities-encrypt
+      operationId: encrypt
       requestBody:
         content:
           application/json:
@@ -152,7 +192,7 @@ paths:
                 - data
                 - key
         description: ''
-  /utilities/decrypt:
+  /decrypt:
     post:
       summary: Decrypt data
       tags: ["Encryption"]
@@ -161,7 +201,7 @@ paths:
           description: OK
         '400':
           description: Bad Request
-      operationId: post-utilities-encrypt
+      operationId: decrypt
       requestBody:
         content:
           application/json:
@@ -178,5 +218,15 @@ paths:
                 - key
         description: ''
 components:
-  schemas: {}
+  schemas:
+    Error:
+      title: Error
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          type: string
+        statusCode:
+          type: number
   securitySchemes: {}

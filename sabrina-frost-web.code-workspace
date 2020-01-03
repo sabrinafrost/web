@@ -32,7 +32,6 @@
 		"search.smartCase": true,
 		"debug.toolBarLocation": "docked",
 		"editor.tabSize": 2,
-		"explorer.compactFolders": false,
-		"explorerExclude.backup": null
+		"explorer.compactFolders": false
 	}
 }
