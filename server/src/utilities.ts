@@ -1,5 +1,5 @@
-import * as cryptoJS from 'crypto-js';
 import * as fastify from "fastify";
+import * as cryptoJS from 'crypto-js';
 
 export async function encrypt(request, reply) {
   const encrypted = cryptoJS.AES.encrypt(request.body.data, request.body.key).toString()
@@ -15,8 +15,7 @@ export async function decrypt(request, reply) {
 }
 
 export async function week(request, reply) {
-  let now: any = new Date();
-  let onejan: any = new Date(now.getFullYear(), 0, 1);
-  let week: number = Math.ceil( (((now - onejan) / 86400000) + onejan.getDay() + 1) / 7 );
-  reply.send({ week: week })
+  const dateFormat = require('dateformat');
+  const now = new Date();
+  reply.send({ week: dateFormat(now, "W") })
 };
