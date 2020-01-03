@@ -1,5 +1,6 @@
 import * as fastify from "fastify";
 import * as path from 'path'
+import * as chalk from 'chalk'
 import { Server, IncomingMessage, ServerResponse } from "http";
 import router from "./router";
 
@@ -24,7 +25,7 @@ app.register(require('fastify-static'), { root: path.join(__dirname, 'assets') }
 
 app.listen(port, '0.0.0.0', (err, address) => {
   if (err) throw err
-  console.log(`❄️  Frost server is chillin' on port ${port}`);
+  console.log(chalk`⭐️  {cyan.bold Frost Server} is {italic chillin'} on port: {bold ${port}} ⭐️`);
 })
 
 export default app;
