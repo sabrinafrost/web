@@ -7,7 +7,7 @@
     "build:compile-typescript": "tsc",
     "build:copy-assets": "cpy 'static/**/*.*' ../build --cwd=src --parents",
     "build:copy-common": "cpy '**/*.*' ../../server/build/static/common --cwd=../common/assets --parents",
-    "build:copy-spec": "cpy 'common/spec' server/build/static --cwd=../",
+    "build:copy-spec": "cpy 'spec/*.*' server/build/static --cwd=../common",
     "clean": "del build",
     "debug": "nodemon --config nodemon-debug.json",
     "format": "prettier --write \"src/**/*.ts\"",
