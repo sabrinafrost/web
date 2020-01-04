@@ -1,0 +1,44 @@
+openapi: 3.0.0
+info:
+  title: frost.tools.spec
+  version: '1.0'
+  contact:
+    name: Sabrina Frost
+    url: 'https://sabrinafrost.com'
+    email: api@sabrinafrost.com
+  description: ''
+  # x-logo:
+  #   url: ../assets/images/logo.png
+servers:
+  - url: 'https://frost.tools'
+    description: Production
+  - url: 'http://localhost:8000'
+    description: Development
+x-tagGroups:
+  - name: Tesla
+    tags:
+      - Authentication
+      - Commands
+  - name: Utilities
+    tags:
+      - Encryption
+      - Other
+paths:
+  /bob:
+    description: 'yes'
+  # /tesla/auth:
+  #   $ref: 'tesla.yaml#/paths/auth'
+  # /encrypt:
+  #   $ref: 'utilities.yaml#/paths/encrypt'
+  # /decrypt:
+  #   $ref: 'utilities.yaml#/paths/decrypt'
+  # /week:
+  #   $ref: 'utilities.yaml#/paths/week'
+
+tags:
+  - name: Authentication
+    description: This endpoint lets you generate, refresh, and revoke Tesla access tokens, while encrypting the authentication response and vehicle data.
+  - name: Encryption
+    description: The following endpoints allow you to encrypt or decrypt data using a key (or password) of your choosing.
+  - name: Other
+    description: Miscellaneous endpoints that don't follow under a specific category.

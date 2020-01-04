@@ -4,6 +4,7 @@ import * as chalk from 'chalk'
 import { Server, IncomingMessage, ServerResponse } from "http";
 import router from "./router";
 
+const swaggerCombine = require('swagger-combine');
 const debug = require('debug')('frost-tools:server')
 const serverOptions: fastify.ServerOptions = {
   // Logger only for production
@@ -15,15 +16,12 @@ const serverOptions: fastify.ServerOptions = {
       errorProps: '',
       levelFirst: true,
       messageKey: 'msg',
-      //messageFormat: `{level} - {pid}`,
-      // translateTime: 'mm/dd/yy @ hh:MM:ss',
       translateTime: 'mmmm dS @ h:MM:ss TT Z',
       ignore: 'pid,hostname'
     },
     redact: [
       'req.headers',
       'req.body'
-
     ]
   },
   ignoreTrailingSlash: true
@@ -31,16 +29,23 @@ const serverOptions: fastify.ServerOptions = {
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 const app: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify(serverOptions);
-const openApiOptions = {
-  specification: `${__dirname}/assets/common/reference/frost.tools.v1.yaml`,
-  service: `${__dirname}/service.${process.env.NODE_ENV === 'development' ? `ts` : `js`}`
-};
 
-app.register(require('fastify-helmet'))
-app.register(require('fastify-sensible'))
-app.register(require('fastify-static'), { root: path.join(__dirname, 'assets') })
-app.register(require("fastify-openapi-glue"), openApiOptions);
-app.register(router);
-app.listen(port, '0.0.0.0')
+swaggerCombine(`${__dirname}/static/spec/frost.tools.yaml`)
+  .then(res => {
+    app.register(require('fastify-openapi-glue'), {
+      specification: res,
+      service: `${__dirname}/service.${process.env.NODE_ENV === 'development' ? `ts` : `js`}`
+    });
+
+    app.register(require('fastify-helmet'))
+    app.register(require('fastify-sensible'))
+    app.register(require('fastify-static'), { root: path.join(__dirname, 'static') })
+    app.register(router);
+
+    app.listen(port, '0.0.0.0')
+  })
+  .catch(err => {
+    throw err
+  })
 
 export default app;

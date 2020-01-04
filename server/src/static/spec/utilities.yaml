@@ -1,0 +1,124 @@
+paths:
+  week:
+    get:
+      summary: Get week number
+      tags:
+        - Other
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  week:
+                    type: number
+                    description: ISO 8601 week number
+              examples:
+                example-1:
+                  value:
+                    week: 42
+      operationId: week
+      description: This endpoint returns the ISO 8601 week of the year.
+    parameters: []
+  encrypt:
+    post:
+      summary: Encrypt data
+      tags:
+        - Encryption
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  encrypted:
+                    type: string
+                    description: The encrypted text
+              examples:
+                example-1:
+                  value:
+                    encrypted: U2FsdGVkX1+h4AibsBq7Xeer/L8GT4M8e8egWPpIfjlSVKbRkPIV4fvv+G+wbT5eeEkqfjTNyQpX8cl+m28NXzygFSgTrBNEOIdiek7pJnR+MsWOkdksWGOpylI30VDD6KCjGQTmwS7MRwJkT8n1R2DT1qisiiDFkYLZxT93Zcw=
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/common/components/schemas/error'
+              examples:
+                example-1:
+                  value:
+                    statusCode: 400
+                    error: Bad Request
+                    message: "body should have required property 'key'"
+      operationId: encrypt
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                  description: The text you would like to encrypt
+                key:
+                  type: string
+                  format: password
+                  description: 'A key (or password, if you will) that is used to encrypt and decrypt this data'
+        description: ''
+      description: This endpoint encrypts text using the key you provide.
+  decrypt:
+    post:
+      summary: Decrypt data
+      tags:
+        - Encryption
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  decrypted:
+                    type: string
+                    description: The decrypted text
+              examples:
+                example-1:
+                  value:
+                    decrypted: "Wow! This text was encrypted and now it's not!"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/common/components/schemas/error'
+              examples:
+                example-1:
+                  value:
+                    statusCode: 400
+                    error: Bad Request
+                    message: "body should have required property 'key'"
+      operationId: decrypt
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                  description: The text you would like to decrypt
+                key:
+                  type: string
+                  format: password
+                  description: 'A key (or password, if you will) that is used to encrypt and decrypt this data'
+        description: ''
+      description: This endpoint decrypts text using the key you provide.
+
+common:
+  $ref: 'common.yaml'

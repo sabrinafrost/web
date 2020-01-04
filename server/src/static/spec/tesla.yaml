@@ -1,0 +1,138 @@
+paths:
+  auth:
+    delete:
+      summary: Revoke access token
+      tags:
+        - Authentication
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+      operationId: teslaAuthDelete
+      description: Revoke access token
+      parameters:
+        - schema:
+            type: string
+            minLength: 1
+          in: header
+          name: data
+          description: Encrypted Tesla data
+        - schema:
+            type: string
+          in: header
+          name: encryption_key
+          description: Encryption key (for encrypting / decrypting Tesla authentication data)
+    post:
+      summary: Get access token and vehicle data
+      tags:
+        - Authentication
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/responses/success'
+        '204':
+          description: No Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/responses/error'
+              examples:
+                example-1:
+                  value:
+                    message: No vehicles found in this account
+                    error: No Content
+                    statusCode: 204
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/responses/error'
+              examples:
+                example-1:
+                  value:
+                    message: "body should have required property 'key'"
+                    error: Bad Request
+                    statusCode: 400
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/responses/error'
+              examples:
+                example-1:
+                  value:
+                    message: Failed to authenticate with Tesla
+                    error: Unauthorized
+                    statusCode: 401
+      operationId: teslaAuthNew
+      description: 'This endpoint lets you generate, refresh, and revoke Tesla access tokens, while encrypting the authentication response and vehicle data.'
+      parameters:
+        - schema:
+            type: string
+            minLength: 1
+          in: header
+          name: tesla_email
+          description: Tesla account email address
+        - schema:
+            type: string
+          in: header
+          name: tesla_password
+          description: Tesla account password
+        - schema:
+            type: string
+          in: header
+          name: encryption_key
+          description: Encryption key (for encrypting / decrypting Tesla authentication data)
+
+    put:
+      summary: Refresh access token
+      tags:
+        - Authentication
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+      operationId: teslaAuthRefresh
+      description: Refresh access token
+      parameters:
+        - schema:
+            type: string
+            minLength: 1
+          in: header
+          name: data
+          description: Encrypted Tesla data
+        - schema:
+            type: string
+          in: header
+          name: encryption_key
+          description: Encryption key (for encrypting / decrypting Tesla authentication data)
+
+components:
+  schemas:
+    response.success:
+      title: TeslaAuthResponse
+      type: array
+      items:
+        type: object
+        properties:
+          '<name of vehicle>':
+            type: string
+            description: The encrypted data associated with this vehicle
+      description: Successful response from /tesla/auth
+      x-examples:
+        example-1:
+          - "Elon's Roadster": U2FsdGVkX1+8I+5aymBUz35elwql5GgekUsTemUJBAxEa9wfS+7KqVGYqGrrBg2Zuq6nSz4toPAb9W8YK3IrQeGZdvtF9ADMX9Wh4MA]JdaQEETjk8nWWHqJKuazJJHdmYtnMFUhdaJIzUbIpu+n7hrlX/hDXqL/YAt2QeYMpFk=
+          - "Jeff Bezo's Rust Bucket": U2FsdGVkX19NNxagPDVi/ERTis4CVdicXbgK0fVMwoUOlYKTZmJBVl0wTFa66Mxcm2oYrHI6d1PZQU0Yt65zaF3N1WX+pmgtSIc/rW7YSZEEXKyBwKf0g+g4D9juKX1TRVvh6sQjSqVgppy+6Llz/IVBjx+P27YhXnA9NdoJ12k=
+
+responses:
+  error:
+    $ref: 'common.yaml#/components/schemas/error'
+  success:
+    $ref: '#/components/schemas/response.success'

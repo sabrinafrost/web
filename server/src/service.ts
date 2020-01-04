@@ -10,7 +10,7 @@ class Service {
 
   async encrypt (request, reply) { return utilities.encrypt(request, reply) }
   async decrypt (request, reply) { return utilities.decrypt(request, reply) }
-  async week    (request, reply) { return utilities.week(request, reply) }
+  async week (request, reply) { return utilities.week(request, reply) }
 
 }
 

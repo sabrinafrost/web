@@ -18,4 +18,4 @@ export async function week(request, reply) {
   const dateFormat = require('dateformat');
   const now = new Date();
   reply.send({ week: dateFormat(now, "W") })
-};
+}
