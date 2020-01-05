@@ -1,12 +1,17 @@
 openapi: 3.0.0
 info:
-  title: frost.tools.spec
+  title: Frost API Specification
   version: '1.0'
   contact:
     name: Sabrina Frost
     url: 'https://sabrinafrost.com'
     email: api@sabrinafrost.com
-  description: ''
+  description: |
+    <p>This is the personal API of me, Sabrina Frost 👋</p>
+    <p>I use this API for my own personal projects. You're 100% welcome to use it, but if you do you're accepting the following:</p>
+    
+    1. **It's subject to change at any time.** This API exists primarily to serve me, and I make frequent changes to suit my needs. The documentation always reflects the most recent spec, but unannounced breaking changes are probable.
+    2. **You understand that using this API is at your own risk.** Some of these endpoints handle sensitive data, and it's a good rule of thumb to be wary of anyone asking for your Tesla email and password (for example). If you know me, then you know you can trust me. If you _don't_ know me, you're welcome to inspect the source code for this API at <a href="https://github.com/sabrinafrost/web/tree/master/server">github.com/sabrinafrost/web</a>.
   x-logo:
     url: ./common/images/logo.png
 servers:
@@ -24,8 +29,6 @@ x-tagGroups:
       - Encryption
       - Other
 paths:
-  /bob:
-    description: 'yes'
   /tesla/auth:
     $ref: 'tesla.yaml#/paths/auth'
   /encrypt:
@@ -34,11 +37,26 @@ paths:
     $ref: 'utilities.yaml#/paths/decrypt'
   /week:
     $ref: 'utilities.yaml#/paths/week'
-
 tags:
   - name: Authentication
-    description: This endpoint lets you generate, refresh, and revoke Tesla access tokens, while encrypting the authentication response and vehicle data.
+    description: |
+      This endpoint lets you generate, refresh, and revoke Tesla access tokens, while encrypting the authentication response and vehicle data.
+      ### <a name="encrypted-data-example">Encrypted data contains the following properties (with example values):</a>
+      ```javascript
+      {
+        "vehicle_name": "Elon's Roadster", // Available for convenience
+        "vehicle_id": "1234567890", // Used for specifying vehicle in command requests
+        "email_address": "memez4dayz@tesla.com", // Required to renew access token
+        "authentication": {
+          "access_token": "48874fa51af8070c7530505a76a72731f22c47ec7c96d7b9e828aa5cc22bc0f7", // Required to authenticate with Tesla
+          "token_type": "bearer", // Required in all Tesla API headers
+          "expires_in": "3888000", // Milliseconds: used to calculate token renewal date
+          "refresh_token": "0509b7d69c7c357c0708fa15af47887f0cb22cc5aa84e74c22f13727a67a5e82", // Required to renew access token
+          "created_at": "1577139579" // Unix timestamp: Used to calculate token renewal date
+        }
+      }
+      ```
   - name: Encryption
     description: The following endpoints allow you to encrypt or decrypt data using a key (or password) of your choosing.
   - name: Other
-    description: Miscellaneous endpoints that don't follow under a specific category.
+    description: "Miscellaneous endpoints that don't follow under a specific category."

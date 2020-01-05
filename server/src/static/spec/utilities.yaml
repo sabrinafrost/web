@@ -1,3 +1,13 @@
+openapi: 3.0.0
+info:
+  title: frost.tools.utilities.spec
+  version: '1.0'
+  contact:
+    name: Sabrina Frost
+    url: 'https://sabrinafrost.com'
+    email: api@sabrinafrost.com
+  description: 'A frost.tools partial spec'
+  
 paths:
   week:
     get:
@@ -19,9 +29,9 @@ paths:
               examples:
                 example-1:
                   value:
-                    week: 42
+                    42
       operationId: week
-      description: This endpoint returns the ISO 8601 week of the year.
+      description: This returns the ISO 8601 week of the year.
     parameters: []
   encrypt:
     post:
@@ -44,17 +54,7 @@ paths:
                   value:
                     encrypted: U2FsdGVkX1+h4AibsBq7Xeer/L8GT4M8e8egWPpIfjlSVKbRkPIV4fvv+G+wbT5eeEkqfjTNyQpX8cl+m28NXzygFSgTrBNEOIdiek7pJnR+MsWOkdksWGOpylI30VDD6KCjGQTmwS7MRwJkT8n1R2DT1qisiiDFkYLZxT93Zcw=
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/common/components/schemas/error'
-              examples:
-                example-1:
-                  value:
-                    statusCode: 400
-                    error: Bad Request
-                    message: "body should have required property 'key'"
+          $ref: '#/responses/400'
       operationId: encrypt
       requestBody:
         content:
@@ -70,7 +70,7 @@ paths:
                   format: password
                   description: 'A key (or password, if you will) that is used to encrypt and decrypt this data'
         description: ''
-      description: This endpoint encrypts text using the key you provide.
+      description: This will encrypt text.
   decrypt:
     post:
       summary: Decrypt data
@@ -92,17 +92,19 @@ paths:
                   value:
                     decrypted: "Wow! This text was encrypted and now it's not!"
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/common/components/schemas/error'
-              examples:
-                example-1:
-                  value:
-                    statusCode: 400
-                    error: Bad Request
-                    message: "body should have required property 'key'"
+          $ref: '#/responses/400'
+        '401':
+            description: Unauthorized
+            content:
+              application/json:
+                schema:
+                  $ref: '#/responses/error'
+                examples:
+                  example-1:
+                    value:
+                      message: The encryption key provided cannot be used to decrypt this data
+                      error: Unauthorized
+                      statusCode: 401       
       operationId: decrypt
       requestBody:
         content:
@@ -118,7 +120,15 @@ paths:
                   format: password
                   description: 'A key (or password, if you will) that is used to encrypt and decrypt this data'
         description: ''
-      description: This endpoint decrypts text using the key you provide.
+      description: This will decrypt encrypted text (as long as it was encrypted using this API).
 
 common:
   $ref: 'common.yaml'
+
+responses:
+  error:
+    $ref: '#/common/components/schemas/error'
+  '400':
+    $ref: '#/common/components/schemas/400'
+
+  

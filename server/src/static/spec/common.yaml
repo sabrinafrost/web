@@ -1,5 +1,26 @@
+openapi: 3.0.0
+info:
+  title: frost.tools.common.spec
+  version: '1.0'
+  contact:
+    name: Sabrina Frost
+    url: 'https://sabrinafrost.com'
+    email: api@sabrinafrost.com
+  description: A frost.tools partial spec
 components:
   schemas:
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          examples:
+            Missing key from body:
+              value:
+                message: "<body, header, etc.> should have required property '<property name>'"
+                error: Bad Request
+                statusCode: 400
     error:
       title: Error
       type: object
@@ -14,3 +35,5 @@ components:
           type: number
           description: The HTTP status code
       description: The standard error message format returned by this API.
+      x-examples:
+        example-1: {}

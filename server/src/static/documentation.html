@@ -102,8 +102,72 @@
       display: none;
     }
 
-    .react-tabs__tab-panel > div > div > span {  /* right pane "content-type" label */
+    .redoc-wrap .sc-gxMtzJ { /* Verb in middle pane */
+      padding-left: 10px;
+      border-radius: 6px;
+    }
+
+    .sc-htoDjs.sc-fYxtnH.cDGUpB::after { /* Main spec header */
+      content: ' ❄️';
+    }
+
+    .sc-eqIVtm.ecxnvs,
+    .sc-brqgnP.fCJmC {  /* right pane "content-type" label and controls */
       display: none;
+    }
+
+    .sc-gisBJw.gwfZGU {
+      margin-top: 0;
+    }
+
+    .react-tabs__tab-panel {
+      border-radius: 6px;
+    }
+    
+    .sc-eHgmQL .react-tabs__tab-list > li {
+      border-radius: 6px;
+      border-width: 0px;
+    }
+
+    .sc-eHgmQL .react-tabs__tab-list {
+      margin-bottom: 13px;
+    }
+
+    .sc-eHgmQL .react-tabs__tab-list .react-tabs__tab--selected {
+      color: #fff
+    }
+
+    .sc-eHgmQL .react-tabs__tab-list .tab-success.react-tabs__tab--selected {
+      background-color: #28a745;
+    }
+
+    .sc-eHgmQL .react-tabs__tab-list .tab-error.react-tabs__tab--selected {
+      background-color: #dc3545;
+    }
+
+    .redoc-wrap pre .token.comment {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .redoc-wrap .glSnNr pre code {
+      text-shadow: none;
+    }
+
+    .sc-EHOje.sc-bZQynM.dtUibw { /* Request / Response panel */
+      padding: 15px;
+      margin: 30px;
+      height: 100%;
+      width: calc(40% - 60px);
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px;
+    }
+
+    .sc-kPVwWT.fDvFMp { /* Middle pane response accordions */
+      border-radius: 6px;
+    }
+
+    .sc-jWBwVP.sc-iRbamj.glSnNr pre {
+      border-radius: 6px;
     }
   </style>
 </head>
@@ -118,6 +182,7 @@
         hideHostname: true,
         hideLoading: true,
         hideDownloadButton: true,
+        hideSingleRequestSampleTab: true,
         suppressWarnings: true,
         requiredPropsFirst: true,
         sortPropsAlphabetically: true,
@@ -127,7 +192,7 @@
             http: {
               get: '#28a745',
               post: '#007bff',
-              put: '#17a2b8',
+              put: 'rgb(116, 67, 203)',
               patch: '#17a2b8',
               delete: '#dc3545'
             }
@@ -156,7 +221,7 @@
             activeTextColor: '#263238'
           },
           codeSample: {
-            backgroundColor: 'rgba(0,0,0, 0.3)'
+            backgroundColor: 'rgba(38, 50, 56, 0.33)'
           }
         }
       }, document.getElementById('spec'));

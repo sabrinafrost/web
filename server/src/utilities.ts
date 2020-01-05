@@ -17,5 +17,5 @@ export async function decrypt(request, reply) {
 export async function week(request, reply) {
   const dateFormat = require('dateformat');
   const now = new Date();
-  reply.send({ week: dateFormat(now, "W") })
+  reply.send(dateFormat(now, "W"))
 }
