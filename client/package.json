@@ -1,9 +1,10 @@
 {
   "scripts": {
     "start": "PORT=8080 elm-app start",
-    "build": "elm-app build",
-    "install": "elm-app install",
-    "test": "elm-app test"
+    "build": "elm-app build"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "dependencies": {
+    "create-elm-app": "^4.1.2"
+  }
 }
