@@ -4,7 +4,7 @@
   <title>Frost Tools Documentation</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" type="image/x-icon" href="common/images/favicon.png" />
+  <link rel="shortcut icon" type="image/x-icon" href="assets/common/images/favicon.png" />
   <style>
     body {
       margin: 0;
@@ -17,7 +17,7 @@
       padding: 50px 50px 20px 50px;
     }
 
-    .redoc-wrap a {
+    .redoc-wrap a:not(.menu-content a) {
       font-weight: bold;
     }
 
@@ -102,8 +102,94 @@
       display: none;
     }
 
-    .react-tabs__tab-panel > div > div > span {  /* right pane "content-type" label */
+    .redoc-wrap .sc-gxMtzJ { /* Verb in middle pane */
+      padding-left: 10px;
+      border-radius: 6px;
+    }
+
+    .sc-htoDjs.sc-fYxtnH.cDGUpB::after { /* Main spec header */
+      content: ' ❄️';
+    }
+
+    .sc-eqIVtm.ecxnvs,
+    .sc-brqgnP.fCJmC {  /* right pane "content-type" label and controls */
       display: none;
+    }
+
+    .sc-gisBJw.gwfZGU {
+      margin-top: 0;
+    }
+
+    .react-tabs__tab-panel {
+      border-radius: 6px;
+    }
+    
+    .sc-eHgmQL .react-tabs__tab-list > li {
+      border-radius: 6px;
+      border-width: 0px;
+    }
+
+    .sc-eHgmQL .react-tabs__tab-list {
+      margin-bottom: 13px;
+    }
+
+    .sc-eHgmQL .react-tabs__tab-list .react-tabs__tab--selected {
+      color: #fff
+    }
+
+    .sc-eHgmQL .react-tabs__tab-list .tab-success.react-tabs__tab--selected {
+      background-color: #28a745;
+    }
+
+    .sc-eHgmQL .react-tabs__tab-list .tab-error.react-tabs__tab--selected {
+      background-color: #dc3545;
+    }
+
+    .redoc-wrap pre .token.comment {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .redoc-wrap .glSnNr pre code {
+      text-shadow: none;
+    }
+
+    .sc-kPVwWT.fDvFMp { /* Middle pane response accordions */
+      border-radius: 6px;
+    }
+
+    .sc-jWBwVP.sc-iRbamj.glSnNr pre {
+      border-radius: 6px;
+    }
+
+    .fJfNhV {
+      white-space: normal !important; 
+    }
+
+    .redoc-markdown pre {
+      background-color: #1B2327 !important;
+      border-radius: 6px !important;
+      white-space: pre-wrap !important;
+    }
+
+    .redoc-markdown pre span {
+      white-space: pre-wrap !important;
+    }
+
+    .sc-EHOje.sc-bZQynM.dtUibw { /* Request / Response panel */
+      padding: 15px;
+      margin: 40px;
+      height: 100%;
+      border-radius: 6px;
+      width: calc(100% - 80px);
+      background: #1B2327;
+    }
+
+    @media (min-width: 1361px) {
+      .sc-EHOje.sc-bZQynM.dtUibw { /* Request / Response panel */
+        margin: 30px;
+        width: calc(40% - 60px);
+        background: rgba(0,0,0,0.3);
+      }
     }
   </style>
 </head>
@@ -112,12 +198,13 @@
   <div id="spec"></div>
   <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
   <script>
-    Redoc.init('./spec', {
+    Redoc.init('/spec/frost.tools.yaml', {
         disableSearch: true,
         noAutoAuth: true,
         hideHostname: true,
         hideLoading: true,
         hideDownloadButton: true,
+        hideSingleRequestSampleTab: true,
         suppressWarnings: true,
         requiredPropsFirst: true,
         sortPropsAlphabetically: true,
@@ -127,7 +214,7 @@
             http: {
               get: '#28a745',
               post: '#007bff',
-              put: '#17a2b8',
+              put: 'rgb(116, 67, 203)',
               patch: '#17a2b8',
               delete: '#dc3545'
             }
@@ -148,7 +235,7 @@
             }
           },
           rightPanel: {
-            width: '30%'
+            width: '40%'
           },
           menu: {
             width: '350px',
@@ -156,7 +243,7 @@
             activeTextColor: '#263238'
           },
           codeSample: {
-            backgroundColor: 'rgba(0,0,0, 0.3)'
+            backgroundColor: 'rgba(38, 50, 56, 0.33)'
           }
         }
       }, document.getElementById('spec'));

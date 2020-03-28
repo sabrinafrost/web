@@ -9,6 +9,9 @@
 		{
 			"name": "project",
 			"path": "."
+		},
+		{
+			"path": "common"
 		}
 	],
 	"settings": {
@@ -19,11 +22,10 @@
 			"**/CVS": true,
 			"**/.DS_Store": true,
 			"**/node_modules": true,
-			"**/package-lock.json": true,
-			"**/.vscode": true,
-			"**/client": true,
-			"**/server": true,
-			"elm-stuff": true
+			"common": true,
+			"server": true,
+			"package-lock.json": true,
+			"client": true
 		},
 		"vsicons.presets.nestjs": true,
 		"editor.formatOnPaste": true,

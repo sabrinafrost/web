@@ -1,0 +1,141 @@
+openapi: 3.0.0
+info:
+  title: frost.tools.tesla.spec
+  version: '1.0'
+  contact:
+    name: Sabrina Frost
+    url: 'https://sabrinafrost.com'
+    email: api@sabrinafrost.com
+  description: 'A frost.tools partial spec'
+  
+paths:
+  auth:
+    post:
+      summary: Get access token and vehicle data
+      description: This will return a new set of encrypted data for all of the vehicles associated with your account (<a href="#encrypted-data-example">see "Encrypted data contains..." for more information</a>).
+      tags:
+        - Authentication
+      responses:
+        '200':
+          $ref: '#/responses/200'
+        '204':
+          description: No Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/responses/error'
+              examples:
+                example-1:
+                  value:
+                    message: No vehicles found in this account
+                    error: No Content
+                    statusCode: 204
+        '400':
+          $ref: '#/responses/400'
+        '401':
+          $ref: '#/responses/401'
+      operationId: teslaAuthNew
+      parameters:
+        - schema:
+            type: string
+            minLength: 1
+          in: header
+          name: tesla_email
+          description: Tesla account email address
+        - schema:
+            type: string
+          in: header
+          name: tesla_password
+          description: Tesla account password
+        - schema:
+            type: string
+          in: header
+          name: encryption_key
+          description: Encryption key (for encrypting / decrypting Tesla authentication data)
+
+    put:
+      summary: Refresh access token
+      tags:
+        - Authentication
+      responses:
+        '200':
+          $ref: '#/responses/200'
+        '401':
+          $ref: '#/responses/401'
+      operationId: teslaAuthRefresh
+      description: This will refresh the access token in your encrypted dataset (<a href="#encrypted-data-example">see "Encrypted data contains..." for more information</a>). Tesla access tokens expire after 45 days.
+      parameters:
+        - schema:
+            type: string
+            minLength: 1
+          in: header
+          name: data
+          description: Encrypted Tesla data
+        - schema:
+            type: string
+          in: header
+          name: encryption_key
+          description: Encryption key (for encrypting / decrypting Tesla authentication data)
+    delete:
+      summary: Revoke access token
+      tags:
+        - Authentication
+      responses:
+        '200':
+          description: OK
+        '401':
+          $ref: '#/responses/401'
+      operationId: teslaAuthDelete
+      description: This is will revoke your access token so it can no longer be used to access or control your vehicle. Your encrypted dataset is useless after this, and <a href="#operation/teslaAuthNew">will need to be regenerated</a> if you would like to continue using this API.
+      parameters:
+        - schema:
+            type: string
+            minLength: 1
+          in: header
+          name: data
+          description: Encrypted Tesla data
+        - schema:
+            type: string
+          in: header
+          name: encryption_key
+          description: Encryption key (for encrypting / decrypting Tesla authentication data)
+
+common:
+  $ref: 'common.yaml'
+
+responses:
+  error:
+    $ref: '#/common/components/schemas/error'
+  '200':
+    description: OK
+    content:
+      application/json:
+        schema:
+          title: TeslaAuthResponse
+          type: array
+          items:
+            type: object
+            properties:
+              '<name of vehicle>':
+                type: string
+                description: The encrypted data associated with this vehicle
+          description: Successful response from /tesla/auth
+        examples:
+          example-1:
+            value:
+              - "Elon's Roadster": U2FsdGVkX1+8I+5aymBUz35elwql5GgekUsTemUJBAxEa9wfS+7KqVGYqGrrBg2Zuq6nSz4toPAb9W8YK3IrQeGZdvtF9ADMX9Wh4MA]JdaQEETjk8nWWHqJKuazJJHdmYtnMFUhdaJIzUbIpu+n7hrlX/hDXqL/YAt2QeYMpFk=
+              - "Jeff Bezo's Rust Bucket": U2FsdGVkX19NNxagPDVi/ERTis4CVdicXbgK0fVMwoUOlYKTZmJBVl0wTFa66Mxcm2oYrHI6d1PZQU0Yt65zaF3N1WX+pmgtSIc/rW7YSZEEXKyBwKf0g+g4D9juKX1TRVvh6sQjSqVgppy+6Llz/IVBjx+P27YhXnA9NdoJ12k=
+  '400':
+    $ref: '#/common/components/schemas/400'
+  '401':
+    description: Unauthorized
+    content:
+      application/json:
+        schema:
+          $ref: '#/responses/error'
+        examples:
+          example-1:
+            value:
+              message: Failed to authenticate with Tesla
+              error: Unauthorized
+              statusCode: 401

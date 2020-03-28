@@ -1,0 +1,16 @@
+components:
+  schemas:
+    error:
+      title: Error
+      type: object
+      properties:
+        message:
+          type: string
+          description: The HTTP error code description
+        error:
+          type: string
+          description: The error message provided by the API
+        statusCode:
+          type: number
+          description: The HTTP status code
+      description: The standard error message format returned by this API.
